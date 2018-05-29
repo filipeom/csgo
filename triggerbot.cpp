@@ -23,6 +23,7 @@ struct triggerBot {
 
 int
 main() {
+  fProcess.RunProcess();
   while(1) {
     struct triggerBot bot;
     bot.ReadMemory();
