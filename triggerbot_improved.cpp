@@ -13,26 +13,19 @@ DWORD dwEntityList = 0x4A8473C;
 DWORD dwTeamNum = 0xF0;
 DWORD dwHealth = 0xFC;
 DWORD dwEntityLoopDist = 0x10;
+
 DWORD localPlayer;
-
-int id;
-
-struct player {
-  DWORD address;
-  int teamNum;
-};
+int crossHairId;
+int localTeamNumber;
 
 /* MEMORY FUNCTIONS */
-void ReadMemory() {
+void getCrossHairId() {
   ReadProcessMemory(fProcess.__HandleProcess,
-      (PBYTE*) (fProcess.__dwordClient + dwLocalPlayer), 
-      , &localPlayer, sizeof(DWORD), 0);
-  ReadProcessMemory(fProcess.__HandleProcess,
-      (PBYTE*) (localPlayer+dwCrossHairId), &id, sizeof(int), 0);
+      (PBYTE*) (localPlayer+dwCrossHairId), &crossHairId, sizeof(int), 0);
 
 }
 
-void WriteMemory() {
+void shoot() {
   int attack = 5;
   WriteProcessMemory(fProcess.__HandleProcess, 
       (PBYTE*) (fProcess.__dwordClient + dwAttack), &attack, sizeof(int),0);
@@ -48,11 +41,13 @@ main() {
   ReadProcessMemory(fProcess.__HandleProcess,
       (PBYTE*) (fProcess.__dwordClient + dwLocalPlayer),
       &localPlayer, sizeof(DWORD), 0);
+  ReadProcessMemory(fProcess.__HandleProcess, (PBYTE*) localPlayer,
+      &localTeamNumber, sizeof(int), 0);
 
   for(;;) {
-    ReadMemory();
-    if(id > 0 && id < 32) {
-      WriteMemory();
+    getCrossHairId();
+    if(crossHairId > 0 && crossHairId < 32) {
+      shoot();
     }
   }
 }
