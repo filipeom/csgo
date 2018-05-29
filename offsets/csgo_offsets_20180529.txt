@@ -1,2 +1,3 @@
 localPlayer = 0xAA9AB4;
 crossHairId = 0xB2A4;
+attack = 0x2EC6AC8;
