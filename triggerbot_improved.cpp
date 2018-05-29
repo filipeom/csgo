@@ -23,9 +23,12 @@ struct player {
 };
 
 /* MEMORY FUNCTIONS */
-void ReadMemory(struct player &p) {
+void ReadMemory() {
   ReadProcessMemory(fProcess.__HandleProcess,
-      (PBYTE*) (p.address+dwCrossHairId), &id, sizeof(int), 0);
+      (PBYTE*) (fProcess.__dwordClient + dwLocalPlayer), 
+      , &localPlayer, sizeof(DWORD), 0);
+  ReadProcessMemory(fProcess.__HandleProcess,
+      (PBYTE*) (localPlayer+dwCrossHairId), &id, sizeof(int), 0);
 
 }
 
@@ -40,15 +43,14 @@ void WriteMemory() {
 
 int
 main() {
-  struct player localPlayer;
   fProcess.RunProcess();
   
-  localPlayer.address = fProcess.__dwordClient + dwLocalPlayer;
-  ReadProcessMemory(fProcess.__HandleProcess, (PBYTE*) localPlayer.address,
-      &localPlayer.teamNum, sizeof(int), 0);
+  ReadProcessMemory(fProcess.__HandleProcess,
+      (PBYTE*) (fProcess.__dwordClient + dwLocalPlayer),
+      &localPlayer, sizeof(DWORD), 0);
 
   for(;;) {
-    ReadMemory(localPlayer);
+    ReadMemory();
     if(id > 0 && id < 32) {
       WriteMemory();
     }
