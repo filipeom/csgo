@@ -20,7 +20,7 @@ struct triggerBot {
         (PBYTE*) (localPlayer+dwCrossHairId), &id, sizeof(int), 0);
   
   }
-}
+};
 
 int
 main() {
