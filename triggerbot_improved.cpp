@@ -56,7 +56,7 @@ getCrossHairPlayer() {
 
 void 
 shoot() {
-  int attack = 1;
+  int attack = 5;
   WriteProcessMemory(fProcess.__HandleProcess, 
       (PBYTE*) (fProcess.__dwordClient + dwAttack), &attack, sizeof(int),0);
   attack = 4;
