@@ -23,13 +23,15 @@ int crossHairPlayerTeam;
 int crossHairPlayerHealth;
 
 /* MEMORY FUNCTIONS */
-void getCrossHairId() {
+void 
+getCrossHairId() {
   ReadProcessMemory(fProcess.__HandleProcess,
       (PBYTE*) (localPlayer+dwCrossHairId), &crossHairId, sizeof(int), 0);
 
 }
 
-void getLocalPlayer() {
+void 
+getLocalPlayer() {
   ReadProcessMemory(fProcess.__HandleProcess,
       (PBYTE*) (fProcess.__dwordClient + dwLocalPlayer),
       &localPlayer, sizeof(DWORD), 0);
@@ -38,7 +40,8 @@ void getLocalPlayer() {
       sizeof(int), 0);
 }
 
-void getCrossHairPlayer() {
+void 
+getCrossHairPlayer() {
   DWORD crossOffset = (crossHairId - 1) * dwEntityLoopDist;
   ReadProcessMemory(fProcess.__HandleProcess, 
       (PBYTE*) (fProcess.__dwordClient + dwEntityList + crossOffset), 
@@ -51,7 +54,8 @@ void getCrossHairPlayer() {
       sizeof(int), 0);
 }
 
-void shoot() {
+void 
+shoot() {
   int attack = 1;
   WriteProcessMemory(fProcess.__HandleProcess, 
       (PBYTE*) (fProcess.__dwordClient + dwAttack), &attack, sizeof(int),0);
