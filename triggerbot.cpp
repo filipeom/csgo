@@ -1,5 +1,4 @@
 #include <Windows.h>
-#include <iostream>
 #include "Hprocess.h"
 /* GLOBAL VARIABLES*/
 //CSGO PROCESS
@@ -39,9 +38,6 @@ main() {
 
   while(1) {
     ReadMemory();
-    //Debug
-    std::cout << id << std::endl;
-
     if(id > 0 && id < 32) {
       WriteMemory();
     }
