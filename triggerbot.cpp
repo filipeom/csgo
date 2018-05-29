@@ -6,6 +6,7 @@ CHackProcess fProcess;
 
 DWORD dwLocalPlayer = 0xAA9AB4;
 DWORD dwCrossHairId = 0xB2A4;
+DWORD dwAttack = 0x2EC6AC8;
 int id;
 
 struct triggerBot {
@@ -29,5 +30,15 @@ main() {
     bot.ReadMemory();
     std::cout << id << std::endl;
     Sleep(1);
+    
+    if(id > 0) {
+      int attack = 5;
+      WriteProcessMemory(fProcess.__HandleProcess, 
+          (PBYTE*) (fProcess.__dwordClient + dwAttack), &attack, sizeof(int),0);
+      attack = 4;
+      WriteProcessMemory(fProcess.__HandleProcess, 
+          (PBYTE*) (fProcess.__dwordClient + dwAttack), &attack, sizeof(int),0);
+
+    }
   }
 }
