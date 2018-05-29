@@ -18,7 +18,7 @@ DWORD localPlayer;
 int crossHairId;
 int localTeamNumber;
 
-DWORD crossHairPlayer
+DWORD crossHairPlayer;
 int crossHairPlayerTeam;
 int crossHairPlayerHealth;
 
