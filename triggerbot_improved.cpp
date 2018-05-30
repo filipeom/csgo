@@ -6,18 +6,20 @@
 CHackProcess fProcess;
 
 //OFFSETS
-DWORD dwLocalPlayer = 0xAA9AB4;
-DWORD dwCrossHairId = 0xB2A4;
-DWORD dwAttack = 0x2EC6AC8;
-DWORD dwEntityList = 0x4A8473C;
-DWORD dwTeamNum = 0xF0;
-DWORD dwHealth = 0xFC;
-DWORD dwEntityLoopDist = 0x10;
+const DWORD dwLocalPlayer = 0xAA9AB4;
+const DWORD dwCrossHairId = 0xB2A4;
+const DWORD dwAttack = 0x2EC6AC8;
+const DWORD dwEntityList = 0x4A8473C;
+const DWORD dwTeamNum = 0xF0;
+const DWORD dwHealth = 0xFC;
+const DWORD dwEntityLoopDist = 0x10;
 
+//LOCAL PLAYER
 DWORD localPlayer;
 int crossHairId;
 int localTeamNumber;
 
+//CROSSHAIR ENTITY
 DWORD crossHairPlayer;
 int crossHairPlayerTeam;
 int crossHairPlayerHealth;
@@ -78,4 +80,6 @@ main() {
         shoot();
     }
   }
+  //Should never reach in a successful run.
+  return -1;
 }
