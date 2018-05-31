@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include "offsets.h"
 #include "Hprocess.h"
 
 /* GLOBAL VARIABLES */
@@ -8,17 +9,6 @@ struct glowStruct {
   float r,g,b,a;
   bool rwo, rwuo;
 };
-
-//OFFSETS
-const DWORD dwLocalPlayer = 0xAA9AB4;
-const DWORD dwCrossHairId = 0xB2A4;
-const DWORD dwAttack = 0x2EC6AC8;
-const DWORD dwEntityList = 0x4A8473C;
-const DWORD dwTeamNum = 0xF0;
-const DWORD dwHealth = 0xFC;
-const DWORD dwEntityLoopDist = 0x10;
-const DWORD dwGlowIndex = 0xA310;
-const DWORD dwGlowObject = 0x4FB14E8;
 
 //LOCAL PLAYER
 DWORD localPlayer;
@@ -32,21 +22,21 @@ int entityTeamNumber;
 void
 getLocalPlayer() {
   ReadProcessMemory(fProcess.__HandleProcess, 
-      (PBYTE*) (fProcess.__dwordClient + dwLocalPlayer),
+      (PBYTE*) (fProcess.__dwordClient + Offsets::dwLocalPlayer),
       &localPlayer, sizeof(DWORD), 0);
   ReadProcessMemory(fProcess.__HandleProcess, 
-      (PBYTE*) (localPlayer + dwTeamNum), &localTeamNumber,
+      (PBYTE*) (localPlayer + Offsets::dwTeamNum), &localTeamNumber,
       sizeof(int), 0);
 }
 
 void
 getEntity(int i) {
-  DWORD entityOffset = (i-1) * dwEntityLoopDist;
+  DWORD entityOffset = (i-1) * Offsets::dwEntityLoopDist;
   ReadProcessMemory(fProcess.__HandleProcess,
-      (PBYTE*) (fProcess.__dwordClient + dwEntityList + entityOffset),
+      (PBYTE*) (fProcess.__dwordClient + Offsets::dwEntityList + entityOffset),
       &entity, sizeof(DWORD), 0);
   ReadProcessMemory(fProcess.__HandleProcess, 
-      (PBYTE*) (entity + dwTeamNum), &entityTeamNumber, 
+      (PBYTE*) (entity + Offsets::dwTeamNum), &entityTeamNumber, 
       sizeof(int), 0);
 }
 
@@ -80,12 +70,12 @@ main() {
     for(i = 1; i < 65; i++) {
       getEntity(i);
       ReadProcessMemory(fProcess.__HandleProcess, 
-          (PBYTE*) (entity + dwGlowIndex), &glowIndex, 
+          (PBYTE*) (entity + Offsets::dwGlowIndex), &glowIndex, 
           sizeof(DWORD), 0);
       
       if(localTeamNumber == entityTeamNumber) {
         ReadProcessMemory(fProcess.__HandleProcess,
-            (PBYTE*) (fProcess.__dwordClient + dwGlowObject),
+            (PBYTE*) (fProcess.__dwordClient + Offsets::dwGlowObject),
             &glowObject, sizeof(DWORD), 0);
         
         aux = glowIndex * 0x38 + 0x4;
@@ -120,7 +110,7 @@ main() {
 
       } else {
         ReadProcessMemory(fProcess.__HandleProcess,
-            (PBYTE*) (fProcess.__dwordClient + dwGlowObject),
+            (PBYTE*) (fProcess.__dwordClient + Offsets::dwGlowObject),
             &glowObject, sizeof(DWORD), 0);
         
         aux = glowIndex * 0x38 + 0x4;
@@ -154,7 +144,6 @@ main() {
             (PBYTE*) (curr), &enemy.rwuo, sizeof(bool), 0);
       }
     } 
-    Sleep(10);
   }
   //Should never reach in a successful run.
   return -1;
