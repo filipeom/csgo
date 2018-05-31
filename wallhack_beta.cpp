@@ -60,12 +60,13 @@ main() {
   init_struct(&team, 0, 0, 1, 1, true, true);
 
   fProcess.RunProcess();
-  getLocalPlayer();
 
   for(;;) {
     int i;
     DWORD glowIndex, glowObject;
     DWORD aux, curr;
+    
+    getLocalPlayer();
     
     for(i = 1; i < 65; i++) {
       getEntity(i);

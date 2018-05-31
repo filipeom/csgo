@@ -61,9 +61,9 @@ shoot() {
 int
 main() {
   fProcess.RunProcess();
-  getLocalPlayer();
-
+  
   for(;;) {
+    getLocalPlayer();
     getCrossHairId();
     if (crossHairId > 0 && crossHairId < 65) {
       getCrossHairPlayer();
