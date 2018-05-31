@@ -7,7 +7,7 @@ CHackProcess fProcess;
 struct glowStruct {
   float r,g,b,a;
   bool rwo, rwuo;
-}
+};
 
 //OFFSETS
 const DWORD dwLocalPlayer = 0xAA9AB4;
