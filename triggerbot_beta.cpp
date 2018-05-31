@@ -1,5 +1,5 @@
 #include <Windows.h>
-#include "offsets."
+#include "offsets.h"
 #include "Hprocess.h"
 /* GLOBAL VARIABLES*/
 
